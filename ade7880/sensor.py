@@ -4,7 +4,7 @@ from esphome.components import sensor, i2c
 from esphome import pins
 from esphome.const import (
     CONF_ID,
-    CONF_VOLTAGE,
+#    CONF_VOLTAGE,
     DEVICE_CLASS_CURRENT,
     DEVICE_CLASS_POWER,
     DEVICE_CLASS_VOLTAGE,
@@ -22,15 +22,26 @@ ADE7880 = ade7880_ns.class_("ADE7880", cg.PollingComponent, i2c.I2CDevice)
 CONF_IRQ_PIN = "irq_pin"
 CONF_CURRENT_A = "current_a"
 CONF_CURRENT_B = "current_b"
+CONF_CURRENT_C = "current_c"
+CONF_VOLTAGE_A = "voltage_a"
+CONF_VOLTAGE_B = "voltage_b"
+CONF_VOLTAGE_C = "voltage_c"
 CONF_ACTIVE_POWER_A = "active_power_a"
 CONF_ACTIVE_POWER_B = "active_power_b"
+CONF_ACTIVE_POWER_C = "active_power_c"
 
 CONFIG_SCHEMA = (
     cv.Schema(
         {
-            cv.GenerateID(): cv.declare_id(ADE7953),
+            cv.GenerateID(): cv.declare_id(ADE7880),
             cv.Optional(CONF_IRQ_PIN): pins.input_pin,
-            cv.Optional(CONF_VOLTAGE): sensor.sensor_schema(
+            cv.Optional(CONF_VOLTAGE_A): sensor.sensor_schema(
+                UNIT_VOLT, ICON_EMPTY, 1, DEVICE_CLASS_VOLTAGE
+            ),
+            cv.Optional(CONF_VOLTAGE_B): sensor.sensor_schema(
+                UNIT_VOLT, ICON_EMPTY, 1, DEVICE_CLASS_VOLTAGE
+            ), 
+            cv.Optional(CONF_VOLTAGE_C): sensor.sensor_schema(
                 UNIT_VOLT, ICON_EMPTY, 1, DEVICE_CLASS_VOLTAGE
             ),
             cv.Optional(CONF_CURRENT_A): sensor.sensor_schema(
@@ -39,10 +50,16 @@ CONFIG_SCHEMA = (
             cv.Optional(CONF_CURRENT_B): sensor.sensor_schema(
                 UNIT_AMPERE, ICON_EMPTY, 2, DEVICE_CLASS_CURRENT
             ),
+            cv.Optional(CONF_CURRENT_C): sensor.sensor_schema(
+                UNIT_AMPERE, ICON_EMPTY, 2, DEVICE_CLASS_CURRENT
+            ),
             cv.Optional(CONF_ACTIVE_POWER_A): sensor.sensor_schema(
                 UNIT_WATT, ICON_EMPTY, 1, DEVICE_CLASS_POWER
             ),
             cv.Optional(CONF_ACTIVE_POWER_B): sensor.sensor_schema(
+                UNIT_WATT, ICON_EMPTY, 1, DEVICE_CLASS_POWER
+            ),
+            cv.Optional(CONF_ACTIVE_POWER_C): sensor.sensor_schema(
                 UNIT_WATT, ICON_EMPTY, 1, DEVICE_CLASS_POWER
             ),
         }
@@ -61,11 +78,15 @@ async def to_code(config):
         cg.add(var.set_irq_pin(config[CONF_IRQ_PIN]))
 
     for key in [
-        CONF_VOLTAGE,
+        CONF_VOLTAGE_A,
+        CONF_VOLTAGE_B,
+        CONF_VOLTAGE_C
         CONF_CURRENT_A,
         CONF_CURRENT_B,
+        CONF_CURRENT_C,
         CONF_ACTIVE_POWER_A,
         CONF_ACTIVE_POWER_B,
+        CONF_ACTIVE_POWER_C,
     ]:
         if key not in config:
             continue
