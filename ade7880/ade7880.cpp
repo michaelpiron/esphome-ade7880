@@ -2,22 +2,26 @@
 #include "esphome/core/log.h"
 
 namespace esphome {
-namespace ade7953 {
+namespace ade7880 {
 
-static const char *TAG = "ade7953";
+static const char *TAG = "ade7880";
 
-void ADE7953::dump_config() {
-  ESP_LOGCONFIG(TAG, "ADE7953:");
+void ADE7880::dump_config() {
+  ESP_LOGCONFIG(TAG, "ADE7880:");
   if (this->has_irq_) {
     ESP_LOGCONFIG(TAG, "  IRQ Pin: GPIO%u", this->irq_pin_number_);
   }
   LOG_I2C_DEVICE(this);
   LOG_UPDATE_INTERVAL(this);
-  LOG_SENSOR("  ", "Voltage Sensor", this->voltage_sensor_);
+  LOG_SENSOR("  ", "Voltage A Sensor", this->voltage_a_sensor_);
+  LOG_SENSOR("  ", "Voltage B Sensor", this->voltage_b_sensor_);
+  LOG_SENSOR("  ", "Voltage C Sensor", this->voltage_c_sensor_);
   LOG_SENSOR("  ", "Current A Sensor", this->current_a_sensor_);
   LOG_SENSOR("  ", "Current B Sensor", this->current_b_sensor_);
+  LOG_SENSOR("  ", "Current C Sensor", this->current_c_sensor_);
   LOG_SENSOR("  ", "Active Power A Sensor", this->active_power_a_sensor_);
   LOG_SENSOR("  ", "Active Power B Sensor", this->active_power_b_sensor_);
+  LOG_SENSOR("  ", "Active Power C Sensor", this->active_power_c_sensor_);
 }
 
 #define ADE_PUBLISH_(name, factor) \
@@ -27,10 +31,10 @@ void ADE7953::dump_config() {
   }
 #define ADE_PUBLISH(name, factor) ADE_PUBLISH_(name, factor)
 
-void ADE7953::update() {
+void ADE7880::update() {
   if (!this->is_setup_)
     return;
-
+/* Done until this point /**/
   auto active_power_a = this->ade_read_<int32_t>(0x0312);
   ADE_PUBLISH(active_power_a, 154.0f);
   auto active_power_b = this->ade_read_<int32_t>(0x0313);
@@ -50,5 +54,5 @@ void ADE7953::update() {
   //    auto power_factor_b = this->ade_read_<int16_t>(0x010B);
 }
 
-}  // namespace ade7953
+}  // namespace ade7880
 }  // namespace esphome
