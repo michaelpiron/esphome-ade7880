@@ -35,10 +35,11 @@ class ADE7880 : public i2c::I2CDevice, public PollingComponent {
       this->irq_pin_ = &pin;
       this->irq_pin_->setup();
     }
+   /* Check the register definitions on page 60 of the ADE chip specification ( https://www.analog.com/media/en/technical-documentation/data-sheets/ADE7953.pdf ) */
     this->set_timeout(100, [this]() {
       this->ade_write_<uint8_t>(0x0010, 0x04); /* to check */
-      this->ade_write_<uint8_t>(0x00FE, 0xAD); /* to check */
-      this->ade_write_<uint16_t>(0x0120, 0x0030); /* to check */
+      this->ade_write_<uint8_t>(0x00FE, 0xAD); /* Part of power-up procedure: writing 0xAD to Register Addresss 0xFE unlocks Register 0x120 (pg18) */
+      this->ade_write_<uint16_t>(0x0120, 0x0030); /* Part of power-up procedure: Register 0x120 ensures that the optimum timing configuration is selected to maximize the accuracy and dynamic range.(pg18) */
       this->is_setup_ = true;
     });
   }
