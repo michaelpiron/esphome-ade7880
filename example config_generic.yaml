@@ -1,0 +1,15 @@
+# Example configuration entry
+sensor:
+  - platform: ade7953
+    irq_pin: GPIO16
+    voltage:
+      name: ADE7953 Voltage
+    current_a:
+      name: ADE7953 Current A
+    current_b:
+      name: ADE7953 Current B
+    active_power_a:
+      name: ADE7953 Active Power A
+    active_power_b:
+      name: ADE7953 Active Power B
+    update_interval: 60s
