@@ -5,22 +5,28 @@
 #include "esphome/components/sensor/sensor.h"
 
 namespace esphome {
-namespace ade7953 {
+namespace ade7880 {
 
-class ADE7953 : public i2c::I2CDevice, public PollingComponent {
+class ADE7880 : public i2c::I2CDevice, public PollingComponent {
  public:
   void set_irq_pin(uint8_t irq_pin) {
     has_irq_ = true;
     irq_pin_number_ = irq_pin;
   }
-  void set_voltage_sensor(sensor::Sensor *voltage_sensor) { voltage_sensor_ = voltage_sensor; }
+  void set_voltage_a_sensor(sensor::Sensor *voltage_a_sensor) { voltage_a_sensor_ = voltage_a_sensor; }
+  void set_voltage_b_sensor(sensor::Sensor *voltage_b_sensor) { voltage_b_sensor_ = voltage_b_sensor; }
+  void set_voltage_c_sensor(sensor::Sensor *voltage_c_sensor) { voltage_c_sensor_ = voltage_c_sensor; }
   void set_current_a_sensor(sensor::Sensor *current_a_sensor) { current_a_sensor_ = current_a_sensor; }
   void set_current_b_sensor(sensor::Sensor *current_b_sensor) { current_b_sensor_ = current_b_sensor; }
+  void set_current_c_sensor(sensor::Sensor *current_c_sensor) { current_c_sensor_ = current_c_sensor; }
   void set_active_power_a_sensor(sensor::Sensor *active_power_a_sensor) {
     active_power_a_sensor_ = active_power_a_sensor;
   }
   void set_active_power_b_sensor(sensor::Sensor *active_power_b_sensor) {
     active_power_b_sensor_ = active_power_b_sensor;
+  }
+  void set_active_power_c_sensor(sensor::Sensor *active_power_c_sensor) {
+    active_power_c_sensor_ = active_power_c_sensor;
   }
 
   void setup() override {
@@ -30,9 +36,9 @@ class ADE7953 : public i2c::I2CDevice, public PollingComponent {
       this->irq_pin_->setup();
     }
     this->set_timeout(100, [this]() {
-      this->ade_write_<uint8_t>(0x0010, 0x04);
-      this->ade_write_<uint8_t>(0x00FE, 0xAD);
-      this->ade_write_<uint16_t>(0x0120, 0x0030);
+      this->ade_write_<uint8_t>(0x0010, 0x04); /* to check */
+      this->ade_write_<uint8_t>(0x00FE, 0xAD); /* to check */
+      this->ade_write_<uint16_t>(0x0120, 0x0030); /* to check */
       this->is_setup_ = true;
     });
   }
@@ -68,12 +74,16 @@ class ADE7953 : public i2c::I2CDevice, public PollingComponent {
   uint8_t irq_pin_number_;
   GPIOPin *irq_pin_{nullptr};
   bool is_setup_{false};
-  sensor::Sensor *voltage_sensor_{nullptr};
+  sensor::Sensor *voltage_a_sensor_{nullptr};
+  sensor::Sensor *voltage_b_sensor_{nullptr};
+  sensor::Sensor *voltage_c_sensor_{nullptr};
   sensor::Sensor *current_a_sensor_{nullptr};
   sensor::Sensor *current_b_sensor_{nullptr};
+  sensor::Sensor *current_c_sensor_{nullptr};
   sensor::Sensor *active_power_a_sensor_{nullptr};
   sensor::Sensor *active_power_b_sensor_{nullptr};
+  sensor::Sensor *active_power_c_sensor_{nullptr};
 };
 
-}  // namespace ade7953
+}  // namespace ade7880
 }  // namespace esphome
