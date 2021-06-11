@@ -133,6 +133,57 @@
 #define   FVRMS         0xE880 
 #define   FIRMS         0xE881 
 #define   FWATT         0xE882 
-#define   FVAR              0xE883 #define   FVA                    0xE884 #define   FPF                    0xE885 #define   VTHDN              0xE886 #define   ITHDN              0xE887 #define   HXVRMS              0xE888 #define   HXIRMS              0xE889 #define   HXWATT              0xE88A #define   HXVAR              0xE88B #define   HXVA              0xE88C #define   HXPF              0xE88D #define   HXVHD              0xE88E #define   HXIHD              0xE88F #define   HYVRMS              0xE890 #define   HYIRMS              0xE891 #define   HYWATT              0xE892 #define   HYVAR              0xE893 #define   HYVA              0xE894 #define   HYPF              0xE895 #define   HYVHD              0xE896 #define   HYIHD              0xE897 #define   HZVRMS              0xE898 #define   HZIRMS              0xE899 #define   HZWATT              0xE89A #define   HZVAR              0xE89B #define   HZVA              0xE89C #define   HZPF              0xE89D #define   HZVHD              0xE89E #define   HZIHD              0xE89F #define   HCONFIG              0xE900 #define   APF                    0xE902 #define   BPF                    0xE903 #define   CPF                    0xE904 #define   APERIOD              0xE905 #define   BPERIOD              0xE906 #define   CPERIOD              0xE907 #define   APNOLOAD              0xE908 #define   VARNOLOAD              0xE909 #define   VANOLOAD              0xE90A #define   LAST_ADD              0xE9FE #define   LAST_RWDATA_16bit      0xE9FF #define   CONFIG3              0xEA00 #define   LAST_OP              0xEA01 #define   WTHR              0xEA02 #define   VARTHR              0xEA03 #define   VATHR              0xEA04 
+#define   FVAR              0xE883 
+#define   FVA                    0xE884 
+#define   FPF                    0xE885 
+#define   VTHDN              0xE886 
+#define   ITHDN              0xE887 
+#define   HXVRMS              0xE888 
+#define   HXIRMS              0xE889 
+#define   HXWATT              0xE88A 
+#define   HXVAR              0xE88B 
+#define   HXVA              0xE88C 
+#define   HXPF              0xE88D 
+#define   HXVHD              0xE88E 
+#define   HXIHD              0xE88F 
+#define   HYVRMS              0xE890 
+#define   HYIRMS              0xE891 
+#define   HYWATT              0xE892 
+#define   HYVAR              0xE893 
+#define   HYVA              0xE894 
+#define   HYPF              0xE895 
+#define   HYVHD              0xE896 
+#define   HYIHD              0xE897 
+#define   HZVRMS              0xE898 
+#define   HZIRMS              0xE899 
+#define   HZWATT              0xE89A 
+#define   HZVAR              0xE89B 
+#define   HZVA              0xE89C 
+#define   HZPF              0xE89D 
+#define   HZVHD              0xE89E 
+#define   HZIHD              0xE89F 
+#define   HCONFIG              0xE900 
+#define   APF                    0xE902 
+#define   BPF                    0xE903 
+#define   CPF                    0xE904 
+#define   APERIOD              0xE905 
+#define   BPERIOD              0xE906 
+#define   CPERIOD              0xE907 
+#define   APNOLOAD              0xE908 
+#define   VARNOLOAD              0xE909 
+#define   VANOLOAD              0xE90A 
+#define   LAST_ADD              0xE9FE 
+#define   LAST_RWDATA_16bit      0xE9FF 
+#define   CONFIG3              0xEA00 
+#define   LAST_OP              0xEA01 
+#define   WTHR              0xEA02 
+#define   VARTHR              0xEA03 
+#define   VATHR              0xEA04 
 
-#define   HX_reg           0xEA08 #define   HY_reg           0xEA09 #define   HZ_reg           0xEA0A #define   LPOILVL           0xEC00 #define   CONFIG2           0xEC01 #endif  /* __ADE7880_H__ */ 
+#define   HX_reg           0xEA08 
+#define   HY_reg           0xEA09 
+#define   HZ_reg           0xEA0A 
+#define   LPOILVL           0xEC00 
+#define   CONFIG2           0xEC01 
+
+#endif  /* __ADE7880_H__ */ 
