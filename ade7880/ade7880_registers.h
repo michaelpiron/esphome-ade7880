@@ -1,7 +1,7 @@
 // Source: https://www.analog.com/media/en/technical-documentation/application-notes/AN-1127.pdf //
 
-#ifndef __ADE7880_H__ 
-#define __ADE7880_H__ 
+#ifndef __ADE7880REG_H__ 
+#define __ADE7880REG_H__ 
 
 #define   AIGAIN            0x4380 
 #define   AVGAIN            0x4381 
@@ -186,4 +186,4 @@
 #define   LPOILVL           0xEC00 
 #define   CONFIG2           0xEC01 
 
-#endif  /* __ADE7880_H__ */ 
+#endif  /* __ADE7880REG_H__ */ 
