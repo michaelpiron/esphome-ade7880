@@ -34,17 +34,27 @@ void ADE7880::dump_config() {
 void ADE7880::update() {
   if (!this->is_setup_)
     return;
-/* Done until this point /**/
-  auto active_power_a = this->ade_read_<int32_t>(0x0312);
+  
+  auto active_power_a = this->ade_read_<int32_t>(AWATT);
   ADE_PUBLISH(active_power_a, 154.0f);
-  auto active_power_b = this->ade_read_<int32_t>(0x0313);
+  auto active_power_b = this->ade_read_<int32_t>(BWATT);
   ADE_PUBLISH(active_power_b, 154.0f);
-  auto current_a = this->ade_read_<uint32_t>(0x031A);
+  auto active_power_c = this->ade_read_<int32_t>(CWATT);
+  ADE_PUBLISH(active_power_c, 154.0f);
+
+  auto current_a = this->ade_read_<uint32_t>(IRMSA);
   ADE_PUBLISH(current_a, 100000.0f);
-  auto current_b = this->ade_read_<uint32_t>(0x031B);
+  auto current_b = this->ade_read_<uint32_t>(IRMSB);
   ADE_PUBLISH(current_b, 100000.0f);
-  auto voltage = this->ade_read_<uint32_t>(0x031C);
-  ADE_PUBLISH(voltage, 26000.0f);
+  auto current_c = this->ade_read_<uint32_t>(IRMSC);
+  ADE_PUBLISH(current_c, 100000.0f);
+  
+  auto voltage_a = this->ade_read_<uint32_t>(AVRMS);
+  ADE_PUBLISH(voltage_a, 26000.0f);
+  auto voltage_b = this->ade_read_<uint32_t>(BVRMS);
+  ADE_PUBLISH(voltage_b, 26000.0f);
+  auto voltage_c = this->ade_read_<uint32_t>(CVRMS);
+  ADE_PUBLISH(voltage_c, 26000.0f);
 
   //    auto apparent_power_a = this->ade_read_<int32_t>(0x0310);
   //    auto apparent_power_b = this->ade_read_<int32_t>(0x0311);
