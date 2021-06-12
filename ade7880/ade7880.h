@@ -107,7 +107,7 @@ class ADE7880 : public i2c::I2CDevice, public PollingComponent {
       // Set Power Mode
       
       // Choose I2C as main interface and lock
-      this->ade_write_<uint8_t>(ADE_CONFIG2, 0x02);
+      this->ade_write_<uint8_t>(CONFIG2, 0x02);
       
       // Set gains
       uint16_t gain;
@@ -116,32 +116,32 @@ class ADE7880 : public i2c::I2CDevice, public PollingComponent {
               (quick_log2(ADE_PGA_NGAIN) << 3) | 
               (quick_log2(ADE_PGA_IGAIN) << 0);
       
-      ade_write_<uint16_t>(ADE_Gain, gain);
+      ade_write_<uint16_t>(Gain, gain);
       
       // Set CONFIG register
 #if ADE_USE_ROGOWSKI
-      this->ade_write_<uint32_t>(ADE_DICOEFF, 0xFF8000);
-      this->ade_write_<uint16_t>(ADE_CONFIG, 0x0001); /* Not sure about number of bits */
+      this->ade_write_<uint32_t>(DICOEFF, 0xFF8000);
+      this->ade_write_<uint16_t>(CONFIG, 0x0001); /* Not sure about number of bits */
 #endif
       // Set COMPMODE register
 #if ADE_USE_60HZ
       /* Default value + bit 14 set to 1*/
-      this->ade_write_<uint16_t>(ADE_COMPMODE, 0x41FF);
+      this->ade_write_<uint16_t>(COMPMODE, 0x41FF);
 #endif
       
       // Initialize all the other data memory RAM registers
       
       // Initialize the WTHR, VARTHR, VATHR, VLEVEL andVNOM registers
-      this->ade_write_<uint8_t>(ADE_WTHR, ADE_WTHR_VAL);
-      this->ade_write_<uint8_t>(ADE_VARTHR, ADE_VARTHR_VAL);
-      this->ade_write_<uint8_t>(ADE_VATHR, ADE_VATHR_VAL);
-      this->ade_write_<uint32_t>(ADE_VLEVEL, ADE_VLEVEL_VAL);
-      this->ade_write_<uint32_t>(ADE_VNOM, ADE_VNOM_VAL);
+      this->ade_write_<uint8_t>(WTHR, ADE_WTHR_VAL);
+      this->ade_write_<uint8_t>(VARTHR, ADE_VARTHR_VAL);
+      this->ade_write_<uint8_t>(VATHR, ADE_VATHR_VAL);
+      this->ade_write_<uint32_t>(VLEVEL, ADE_VLEVEL_VAL);
+      this->ade_write_<uint32_t>(VNOM, ADE_VNOM_VAL);
       
       // Initialize CF1DEN, CF2DEN, and CF3DEN
-      this->ade_write_<uint16_t>(ADE_CF1DEN, ADE_CFXDEN_VAL);
-      this->ade_write_<uint16_t>(ADE_CF2DEN, ADE_CFXDEN_VAL);
-      this->ade_write_<uint16_t>(ADE_CF3DEN, ADE_CFXDEN_VAL);
+      this->ade_write_<uint16_t>(CF1DEN, ADE_CFXDEN_VAL);
+      this->ade_write_<uint16_t>(CF2DEN, ADE_CFXDEN_VAL);
+      this->ade_write_<uint16_t>(CF3DEN, ADE_CFXDEN_VAL);
       
       // Enable RAM protection
       this->ade_write_<uint8_t>(0xE7FE, 0xAD);
@@ -150,24 +150,24 @@ class ADE7880 : public i2c::I2CDevice, public PollingComponent {
       // Read back all data memory RAM registers to ensure thatthey initialized with the desired values.
       
       // Start the DSP
-      this->ade_write_<uint16_t>(ADE_RUN, 0x0001);
+      this->ade_write_<uint16_t>(RUN, 0x0001);
       
       // Read the energy registers xWATTHR, xVAHR, xFWATTHR, and xFVARHR to erase their content and start energyaccumulation from a known state.
-      this->ade_read_<uint32_t>(ADE_AWATTHR);
-      this->ade_read_<uint32_t>(ADE_BWATTHR);
-      this->ade_read_<uint32_t>(ADE_CWATTHR);
-      this->ade_read_<uint32_t>(ADE_AVAHR);
-      this->ade_read_<uint32_t>(ADE_BVAHR);
-      this->ade_read_<uint32_t>(ADE_CVAHR);
-      this->ade_read_<uint32_t>(ADE_AFWATTHR);
-      this->ade_read_<uint32_t>(ADE_BFWATTHR);
-      this->ade_read_<uint32_t>(ADE_CFWATTHR);
-      this->ade_read_<uint32_t>(ADE_AFVARHR);
-      this->ade_read_<uint32_t>(ADE_BFVARHR);
-      this->ade_read_<uint32_t>(ADE_CFVARHR);
+      this->ade_read_<uint32_t>(AWATTHR);
+      this->ade_read_<uint32_t>(BWATTHR);
+      this->ade_read_<uint32_t>(CWATTHR);
+      this->ade_read_<uint32_t>(AVAHR);
+      this->ade_read_<uint32_t>(BVAHR);
+      this->ade_read_<uint32_t>(CVAHR);
+      this->ade_read_<uint32_t>(AFWATTHR);
+      this->ade_read_<uint32_t>(BFWATTHR);
+      this->ade_read_<uint32_t>(CFWATTHR);
+      this->ade_read_<uint32_t>(AFVARHR);
+      this->ade_read_<uint32_t>(BFVARHR);
+      this->ade_read_<uint32_t>(CFVARHR);
       
       // Enable the CF1, CF2, CF3 frequency convertor outputs
-      this->ade_write_<uint16_t>(ADE_CFMODE, 0x08A0); /* To double check */
+      this->ade_write_<uint16_t>(CFMODE, 0x08A0); /* To double check */
       
       // Setup done
       this->is_setup_ = true;
